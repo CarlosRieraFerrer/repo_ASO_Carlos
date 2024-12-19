@@ -1,0 +1,1 @@
+﻿$Horas=Read-Host "Cuantas horas has trabajado"
