@@ -4,12 +4,14 @@ $empleadosCsv = "C:\Users\Administrador\Downloads\empleados.csv"
 $defaultPassword = "aso2025"
 
 $departamentos = Import-Csv -Path $departamentosCsv -Delimiter ";"
+New-ADOrganizationalUnit -name "Empresa" -Path "DC=EMPRESA,DC=LOCAL"
 
 foreach ($departamento in $departamentos) {
-    $nombreDepto = $departamento.Departamento
-    $descripcion = $departamento.Descripcion
+    $nombreDepto = $departamento.departamento
+    $descripcion = $departamento.descripcion
 
-$ouPath = "OU=$nombreDepto,OU=Empresas,DC=EMPRESA,DC=LOCAL"
+$ouPath = "OU=Empresa,DC=EMPRESA,DC=LOCAL"
+write-host $ouPath
 New-ADOrganizationalUnit -Name $nombreDepto -Description $descripcion -Path $ouPath -ErrorAction SilentlyContinue
 }
  
@@ -22,7 +24,7 @@ New-ADOrganizationalUnit -Name $nombreDepto -Description $descripcion -Path $ouP
 
     $login = ($nombre + "." + $apellido).ToLower()
 
- $ouPath = "OU=$departamento,OU=Empresas,DC=EMPRESA,DC=LOCAL"
+ $ouPath = "OU=$departamento,OU=Empresa,DC=EMPRESA,DC=LOCAL"
 
  New-ADUser -SamAccountName $login `
                -UserPrincipalName "$login@EMPRESA.LOCAL" `
