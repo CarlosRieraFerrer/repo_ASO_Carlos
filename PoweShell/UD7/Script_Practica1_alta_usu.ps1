@@ -1,7 +1,7 @@
 ﻿$departamentosCsv = "C:\users\Administrador\Downloads\departamentos.csv"
 $empleadosCsv = "C:\Users\Administrador\Downloads\empleados.csv"
 
-$defaultPassword = "aso2025"
+$defaultPassword = "aso2025."
 
 $departamentos = Import-Csv -Path $departamentosCsv -Delimiter ";"
 New-ADOrganizationalUnit -name "Empresa" -Path "DC=EMPRESA,DC=LOCAL"
@@ -25,7 +25,7 @@ New-ADOrganizationalUnit -Name $nombreDepto -Description $descripcion -Path $ouP
     $login = ($nombre + "." + $apellido).ToLower()
 
  $ouPath = "OU=$departamento,OU=Empresa,DC=EMPRESA,DC=LOCAL"
-
+ Write-Host $login 
  New-ADUser -SamAccountName $login `
                -UserPrincipalName "$login@EMPRESA.LOCAL" `
                -Name "$nombre $apellido" `
